@@ -1,16 +1,19 @@
 package com.api.rinhadebackend.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table
-@Data
-public class Pessoa {
+@Table(name = "pessoas")
+public class Pessoa implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -21,6 +24,58 @@ public class Pessoa {
     @Column(nullable = false)
     private LocalDate nascimento;
     @ElementCollection
-    @CollectionTable(name = "pessoa_stack", joinColumns = @JoinColumn(name = "pessoa_id"))
+    @CollectionTable(name = "pessoas_stacks", joinColumns = @JoinColumn(name = "pessoa_id"))
+    @Column(nullable = true)
     private List<String> stack;
+
+    public Pessoa() {
+    }
+
+    public Pessoa(UUID id, String apelido, String nome, LocalDate nascimento, List<String> stack) {
+        this.id = id;
+        this.apelido = apelido;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.stack = stack;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public LocalDate getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(LocalDate nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public List<String> getStack() {
+        return stack;
+    }
+
+    public void setStack(List<String> stack) {
+        this.stack = stack;
+    }
 }
