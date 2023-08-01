@@ -1,5 +1,6 @@
 package com.api.rinhadebackend.controllers.exceptions;
 
+import com.api.rinhadebackend.services.exceptions.NotFoundException;
 import com.api.rinhadebackend.services.exceptions.UnprocessableEntityException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -17,16 +18,20 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(UnprocessableEntityException.class)
     public ResponseEntity<StandardError> handleUnprocessableEntityException(UnprocessableEntityException exc, HttpServletRequest req) {
-        return sendResponseEntity(exc.getMessage(), req.getRequestURI());
+        return sendResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY, exc.getMessage(), req.getRequestURI());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> handleMethodArgumentNotValidException(MethodArgumentNotValidException exc, HttpServletRequest req) {
-        return sendResponseEntity(exc.getMessage(), req.getRequestURI());
+        return sendResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY, exc.getMessage(), req.getRequestURI());
     }
 
-    private ResponseEntity<StandardError> sendResponseEntity(String errorMessage, String reqURI) {
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<StandardError> handleNotFoundException(NotFoundException exc, HttpServletRequest req) {
+        return sendResponseEntity(HttpStatus.NOT_FOUND, exc.getMessage(), req.getRequestURI());
+    }
+
+    private ResponseEntity<StandardError> sendResponseEntity(HttpStatus status, String errorMessage, String reqURI) {
         var standardError = new StandardError(
             LocalDateTime.now(),
             status.value(),
