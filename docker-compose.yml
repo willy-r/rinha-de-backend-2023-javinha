@@ -2,6 +2,27 @@ version: '3.9'
 name: 'rinha-de-backend'
 
 services:
+  api1:
+    ...
+
+  api2:
+    ...
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api1
+      - api2
+    ports:
+      - "9999:9999"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
+
   db-postgresql:
     image: postgres:15.2-alpine
     healthcheck:

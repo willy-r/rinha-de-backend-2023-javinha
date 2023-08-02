@@ -1,5 +1,6 @@
 package com.api.rinhadebackend.models;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.io.Serial;

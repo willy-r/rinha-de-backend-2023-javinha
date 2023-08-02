@@ -5,6 +5,8 @@ import com.api.rinhadebackend.models.Pessoa;
 import com.api.rinhadebackend.repositories.PessoaRepository;
 import com.api.rinhadebackend.services.exceptions.NotFoundException;
 import com.api.rinhadebackend.services.exceptions.UnprocessableEntityException;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,10 +23,11 @@ public class PessoaService {
     }
 
     public Pessoa save(PessoaCreateDto pessoaCreateDto) {
-        if (pessoaRepository.existsByApelido(pessoaCreateDto.apelido())) {
+        try {
+            return pessoaRepository.save(fromCreateDto(pessoaCreateDto));
+        } catch (DataIntegrityViolationException exc) {
             throw new UnprocessableEntityException("Apelido " + pessoaCreateDto.apelido() + " already in use");
         }
-        return pessoaRepository.save(fromCreateDto(pessoaCreateDto));
     }
 
     public List<Pessoa> findAllBySearchTerm(String searchTerm) {

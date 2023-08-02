@@ -10,11 +10,10 @@ import java.util.UUID;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
-    boolean existsByApelido(String apelido);
     @Query(
         nativeQuery = true,
         value = "SELECT DISTINCT p.* FROM pessoas p " +
-        "JOIN pessoas_stacks ps ON p.id = ps.pessoa_id " +
+        "LEFT JOIN pessoas_stacks ps ON p.id = ps.pessoa_id " +
         "WHERE LOWER(p.apelido) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
         "LOWER(p.nome) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
         "LOWER(ps.stack) LIKE LOWER(CONCAT('%', :searchTerm, '%')) " +
