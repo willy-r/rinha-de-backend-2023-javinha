@@ -3,30 +3,39 @@ name: 'rinha-de-backend'
 
 services:
   spring-api1:
-    image: # TODO
+    image: willrodrigues/rinha-spring-api:latest
     hostname: spring-api1
+    environment:
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadb
+      - DATABASE_USERNAME=rinha
+      - DATABASE_PASSWORD=rinha123
     depends_on:
       db-postgresql:
         condition: service_healthy
     deploy:
       resources:
         limits:
-          cpus: 0.35
-          memory: 725m
+          cpus: '0.35'
+          memory: '1.05GB'
     networks:
       - app-network
 
   spring-api2:
-    image: # TODO
+    image: willrodrigues/rinha-spring-api:latest
     hostname: spring-api2
+    environment:
+      - SERVER_PORT=8000
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadb
+      - DATABASE_USERNAME=rinha
+      - DATABASE_PASSWORD=rinha123
     depends_on:
       db-postgresql:
         condition: service_healthy
     deploy:
       resources:
         limits:
-          cpus: 0.35
-          memory: 725m
+          cpus: '0.35'
+          memory: '1.05GB'
     networks:
       - app-network
 
@@ -42,8 +51,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 0.3
-          memory: 300m
+          cpus: '0.3'
+          memory: '0.3GB'
     networks:
       - app-network
 
@@ -66,8 +75,8 @@ services:
         window: 60s
       resources:
         limits:
-          cpus: 0.5
-          memory: 1250m
+          cpus: '0.5'
+          memory: '0.6GB'
     networks:
       - app-network
 
