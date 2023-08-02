@@ -25,7 +25,7 @@ public class Pessoa implements Serializable {
     private LocalDate nascimento;
     @ElementCollection
     @CollectionTable(name = "pessoas_stacks", joinColumns = @JoinColumn(name = "pessoa_id"))
-    @Column(nullable = true)
+    @Column(nullable = true, length = 32)
     private List<String> stack;
 
     public Pessoa() {

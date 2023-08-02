@@ -1,5 +1,6 @@
 package com.api.rinhadebackend.dtos.pessoa;
 
+import com.api.rinhadebackend.validators.ValidArrayStringLength;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,6 +18,7 @@ public record PessoaCreateDto(
     @Pattern(regexp = "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", message = "Invalid date format. The date should be in the format 'AAAA-MM-DD'.")
     String nascimento,
     @Size(min = 1)
+    @ValidArrayStringLength
     List<String> stack
 ) {
 }
