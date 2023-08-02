@@ -27,15 +27,6 @@ public class PessoaService {
         return pessoaRepository.save(fromCreateDto(pessoaCreateDto));
     }
 
-    public Pessoa fromCreateDto(PessoaCreateDto pessoaCreateDto) {
-        var pessoa = new Pessoa();
-        pessoa.setApelido(pessoaCreateDto.apelido());
-        pessoa.setNome(pessoaCreateDto.nome());
-        pessoa.setNascimento(LocalDate.parse(pessoaCreateDto.nascimento()));
-        pessoa.setStack(pessoaCreateDto.stack());
-        return pessoa;
-    }
-
     public List<Pessoa> findAllBySearchTerm(String searchTerm) {
         return pessoaRepository.findAllBySearchTerm(searchTerm);
     }
@@ -47,5 +38,14 @@ public class PessoaService {
 
     public Long countPeople() {
         return pessoaRepository.count();
+    }
+
+    public Pessoa fromCreateDto(PessoaCreateDto pessoaCreateDto) {
+        var pessoa = new Pessoa();
+        pessoa.setApelido(pessoaCreateDto.apelido());
+        pessoa.setNome(pessoaCreateDto.nome());
+        pessoa.setNascimento(LocalDate.parse(pessoaCreateDto.nascimento()));
+        pessoa.setStack(pessoaCreateDto.stack());
+        return pessoa;
     }
 }

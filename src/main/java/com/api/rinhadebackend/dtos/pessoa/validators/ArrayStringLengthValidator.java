@@ -1,4 +1,4 @@
-package com.api.rinhadebackend.validators;
+package com.api.rinhadebackend.dtos.pessoa.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -16,13 +16,11 @@ public class ArrayStringLengthValidator implements ConstraintValidator<ValidArra
         if (array == null) {
             return true;
         }
-
         for (String str : array) {
-            if (str == null || str.length() > 32) {
+            if (str.length() > 32) {
                 return false;
             }
         }
-
         return true;
     }
 }
