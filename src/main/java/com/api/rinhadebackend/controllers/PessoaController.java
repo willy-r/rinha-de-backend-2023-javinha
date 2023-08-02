@@ -44,4 +44,9 @@ public class PessoaController {
     public ResponseEntity<Pessoa> findById(@PathVariable(name = "id") UUID pessoaId) {
         return ResponseEntity.ok(pessoaService.findById(pessoaId));
     }
+
+    @GetMapping("/contagem-pessoas")
+    public ResponseEntity<String> countPeople() {
+        return ResponseEntity.ok(pessoaService.countPeople().toString());
+    }
 }

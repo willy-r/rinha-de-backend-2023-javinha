@@ -44,4 +44,8 @@ public class PessoaService {
         Optional<Pessoa> pessoaOptional = pessoaRepository.findById(pessoaId);
         return pessoaOptional.orElseThrow(() -> new NotFoundException("Pessoa with identifier " + pessoaId + " was not found"));
     }
+
+    public Long countPeople() {
+        return pessoaRepository.count();
+    }
 }
