@@ -73,6 +73,9 @@ public class Pessoa implements Serializable {
     }
 
     public List<String> getStack() {
+        if (this.stack.isEmpty()) {
+            return null;
+        }
         return stack;
     }
 

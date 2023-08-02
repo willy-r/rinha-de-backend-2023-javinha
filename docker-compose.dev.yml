@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db-postgresql:
+    image: postgres:15.2-alpine
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "2345:5432"
+    environment:
+      POSTGRES_USER: rinha
+      POSTGRES_PASSWORD: rinha123
+      POSTGRES_DB: rinhadb
