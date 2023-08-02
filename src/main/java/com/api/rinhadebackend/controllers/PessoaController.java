@@ -4,11 +4,14 @@ import com.api.rinhadebackend.dtos.pessoa.PessoaCreateDto;
 import com.api.rinhadebackend.models.Pessoa;
 import com.api.rinhadebackend.services.PessoaService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.net.URL;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,6 +33,11 @@ public class PessoaController {
             .buildAndExpand(pessoa.getId())
             .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Pessoa>> findAllBySearchTerm(@RequestParam(value = "t") String searchTerm) {
+        return ResponseEntity.ok(pessoaService.findAllBySearchTerm(searchTerm));
     }
 
     @GetMapping("/{id}")

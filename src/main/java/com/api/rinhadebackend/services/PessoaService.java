@@ -5,10 +5,10 @@ import com.api.rinhadebackend.models.Pessoa;
 import com.api.rinhadebackend.repositories.PessoaRepository;
 import com.api.rinhadebackend.services.exceptions.NotFoundException;
 import com.api.rinhadebackend.services.exceptions.UnprocessableEntityException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,6 +34,10 @@ public class PessoaService {
         pessoa.setNascimento(LocalDate.parse(pessoaCreateDto.nascimento()));
         pessoa.setStack(pessoaCreateDto.stack());
         return pessoa;
+    }
+
+    public List<Pessoa> findAllBySearchTerm(String searchTerm) {
+        return pessoaRepository.findAllBySearchTerm(searchTerm);
     }
 
     public Pessoa findById(UUID pessoaId) {
