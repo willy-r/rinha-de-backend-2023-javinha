@@ -68,7 +68,8 @@ services:
         limits:
           cpus: 0.5
           memory: 1250m
-
+    networks:
+      - app-network
 
 networks:
   app-network:
