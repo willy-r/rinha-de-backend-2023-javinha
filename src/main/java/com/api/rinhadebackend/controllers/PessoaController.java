@@ -28,8 +28,7 @@ public class PessoaController {
     public ResponseEntity<Void> save(@RequestBody @Valid PessoaCreateDto pessoaCreateDto) {
         var pessoa = pessoaService.save(pessoaCreateDto);
         URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
+            .fromPath("/pessoas/{id}")
             .buildAndExpand(pessoa.getId())
             .toUri();
         return ResponseEntity.created(uri).build();
