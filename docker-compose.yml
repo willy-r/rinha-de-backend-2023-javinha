@@ -9,6 +9,9 @@ services:
       - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadb
       - DATABASE_USERNAME=rinha
       - DATABASE_PASSWORD=rinha123
+
+      - HIKARI_MAXIMUM_POOL_SIZE=100
+      - HIKARI_MINIMUM_IDLE=100
     depends_on:
       db-postgresql:
         condition: service_healthy
@@ -16,7 +19,7 @@ services:
       resources:
         limits:
           cpus: '0.35'
-          memory: '1.05GB'
+          memory: '1GB'
     networks:
       - app-network
 
@@ -28,6 +31,9 @@ services:
       - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadb
       - DATABASE_USERNAME=rinha
       - DATABASE_PASSWORD=rinha123
+
+      - HIKARI_MAXIMUM_POOL_SIZE=50
+      - HIKARI_MINIMUM_IDLE=50
     depends_on:
       db-postgresql:
         condition: service_healthy
@@ -35,7 +41,7 @@ services:
       resources:
         limits:
           cpus: '0.35'
-          memory: '1.05GB'
+          memory: '1GB'
     networks:
       - app-network
 
@@ -51,8 +57,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.3'
-          memory: '0.3GB'
+          cpus: '0.1'
+          memory: '0.2GB'
     networks:
       - app-network
 
@@ -75,8 +81,8 @@ services:
         window: 60s
       resources:
         limits:
-          cpus: '0.5'
-          memory: '0.6GB'
+          cpus: '0.7'
+          memory: '0.8GB'
     networks:
       - app-network
 
