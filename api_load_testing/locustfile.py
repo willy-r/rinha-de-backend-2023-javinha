@@ -1,5 +1,4 @@
 import random
-from datetime import date
 from dataclasses import dataclass, asdict
 
 from faker import Faker
